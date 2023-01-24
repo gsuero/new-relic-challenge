@@ -10,11 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WordFrequencyFinderTest {
 
-
     @Test
     void findFrequenciesTest() {
         List<WordFrequencyResult> results = new WordFrequencyFinder()
-                .addFiles("test.txt")
+                .addFiles("text-files/test.txt")
                 .findFrequencies().getResults(3);
 
         assertEquals(1, results.size());
@@ -26,7 +25,7 @@ public class WordFrequencyFinderTest {
     @Test
     void findFrequenciesTestLargerTest() {
         List<WordFrequencyResult> results = new WordFrequencyFinder()
-                .addFiles("brothers-karamazov.txt", "moby-dick.txt")
+                .addFiles("text-files/brothers-karamazov.txt", "text-files/moby-dick.txt")
                 .findFrequencies()
                 .getResults(5);
 
