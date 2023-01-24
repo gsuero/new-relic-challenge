@@ -10,7 +10,6 @@ To execute this project follow the below steps:
      - `java -jar ./build/libs/word-combination-frequency-finder-all.jar <text file> <text file> ...`
    - With STDIN
      - `java -jar ./build/libs/word-combination-frequency-finder-all.jar --stdin`
-This will print the 3 word combination frequency of as many files as provided.
 
 ### How to run the tests
 To execute unit tests just run the below command:
