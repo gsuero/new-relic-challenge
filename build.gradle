@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "application"
+    id "com.github.johnrengelman.shadow" version "6.0.0"
 }
 
 apply plugin : "java"
@@ -19,13 +20,12 @@ ext {
 application {
     mainClassName = javaMainClass
 }
+version = ''
+archivesBaseName = 'word-combination-frequency-finder'
 
 dependencies {
-    implementation 'info.picocli:picocli:4.7.0'
     implementation group: 'org.apache.commons', name: 'commons-text', version: '1.10.0'
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
-
-    annotationProcessor 'info.picocli:picocli-codegen:4.7.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
@@ -48,4 +48,8 @@ task runWithJavaExec(type: JavaExec) {
 
 run {
     standardInput = System.in
+}
+
+tasks.jar {
+    manifest.attributes["Main-Class"] = javaMainClass
 }
