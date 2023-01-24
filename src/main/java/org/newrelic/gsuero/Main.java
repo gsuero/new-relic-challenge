@@ -40,6 +40,7 @@ public class Main implements Callable<Integer> {
                 .findFrequencies()
                 .getResults(100);
 
+        System.out.println();
         System.out.println(String.format("%d of most common three word sequences in descending order of frequency", 100));
 
         for (WordFrequencyResult result : results) {

@@ -1,8 +1,8 @@
 package org.newrelic.gsuero.processor;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.newrelic.gsuero.processor.model.WordFrequencyResult;
-
 
 import java.util.List;
 
@@ -37,5 +37,22 @@ public class WordFrequencyFinderTest {
 
         assertEquals("moby-dick.txt", results.get(1).getFileName());
         assertEquals(5, results.get(1).getResults().size());
+    }
+
+    @Test
+    void findFrequenciesNoFiles() {
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+            new WordFrequencyFinder().addFiles(new String[] {});
+        });
+        Assertions.assertEquals("Invalid input. No files provided.", exception.getMessage());
+    }
+
+    @Test
+    void findFrequenciesNoFile() {
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+            new WordFrequencyFinder().addFiles("non-existent.file").findFrequencies();
+        });
+
+        Assertions.assertEquals("File non-existent.file does not exists...", exception.getMessage());
     }
 }

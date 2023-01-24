@@ -1,18 +1,32 @@
 package org.newrelic.gsuero.processor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.newrelic.gsuero.processor.model.TextFrequencyRequest;
 import org.newrelic.gsuero.processor.model.WordFrequencyResult;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.Collections.reverseOrder;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * A program executable from the command line that when given text(s) will return 100 of most common three word sequences in descending order of frequency.
+ *
+ * For example, if I ran `ruby ./solution.rb texts/moby_dick.txt` or `java main.java texts/moby_dick.txt` the first lines of the result would (probably) be:
+ *
+ * ```
+ * the sperm whale - 85
+ * the white whale - 71
+ * of the whale - 67
+ * ```
+ */
 public class WordFrequencyFinder {
 
     private WordTokenizer tokenizer;
@@ -30,12 +44,15 @@ public class WordFrequencyFinder {
 
 
     public WordFrequencyFinder addFiles(String... fileNames) {
+        if (fileNames == null || fileNames.length < 1) {
+            throw new RuntimeException("Invalid input. No files provided.");
+        }
         for (String fileName : fileNames) {
             Path temp = Path.of(fileName);
             if (Files.exists(temp)) {
                 this.requests.add(new TextFrequencyRequest(temp));
             } else {
-                System.out.println(String.format("File %s does not exists...", temp));
+                throw new RuntimeException(String.format("File %s does not exists...", temp));
             }
         }
         return this;
@@ -61,12 +78,6 @@ public class WordFrequencyFinder {
 
         return result;
 
-    }
-    private void printTable(String words, String occurrences) {
-        System.out.print(StringUtils.rightPad(words, 50));
-        System.out.print("|");
-        System.out.print(StringUtils.leftPad(occurrences, 12));
-        System.out.println();
     }
 
     private static String readFileAsString(Path path) {
