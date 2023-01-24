@@ -1,3 +1,5 @@
+package org.newrelic.gsuero;
+
 import org.apache.commons.lang3.StringUtils;
 import org.newrelic.gsuero.processor.WordFrequencyFinder;
 import org.newrelic.gsuero.processor.WordTokenizer;
