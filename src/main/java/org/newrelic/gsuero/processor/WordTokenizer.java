@@ -33,6 +33,7 @@ public class WordTokenizer {
                 words.add(wordMatcher.group(1));
             }
         }
+        this.wordIndex = 0;
         return this;
     }
 
