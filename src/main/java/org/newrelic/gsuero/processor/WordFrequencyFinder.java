@@ -100,7 +100,8 @@ public class WordFrequencyFinder {
             if (wordSequenceIndex == sequenceLength) {
                 // go back second word after the previous start (w [w] w) w
                 index = index - (sequenceLength - 1);
-                addOrIncrement(combined.toString(), frequencyMap);
+
+                frequencyMap.merge(combined.toString(), 1, Integer::sum);
                 combined.setLength(0);
                 wordSequenceIndex = 0;
 
@@ -110,13 +111,4 @@ public class WordFrequencyFinder {
 
         }
     }
-
-    private void addOrIncrement(String combinedWords, Map<String, Integer> frequencyMap) {
-        if (frequencyMap.containsKey(combinedWords)) {
-            frequencyMap.merge(combinedWords, 1, Integer::sum);
-        } else {
-            frequencyMap.put(combinedWords, 1);
-        }
-    }
-
 }
