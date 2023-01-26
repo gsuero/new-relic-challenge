@@ -52,13 +52,14 @@ public class WordTokenizer {
         return words.size();
     }
 
+    List<String> getAll() {
+        return words;
+    }
     private String sanitize(String text) {
         // remove carriage returns and hyphens
         return removePattern(replacePattern(text, "[\\n\\r]+", " "), "(\\-\\s|\\-)");
     }
 
 
-    public List<String> getAll() {
-        return words;
-    }
+
 }
