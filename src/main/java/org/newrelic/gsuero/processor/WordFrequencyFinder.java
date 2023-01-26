@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +70,7 @@ public class WordFrequencyFinder {
             Map<String, Integer> occurrences = request.getFrequencies().entrySet().stream()
                     .sorted(reverseOrder(comparingInt(Map.Entry::getValue)))
                     .limit(top)
-                    .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
+                    .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, HashMap::new));
 
             result.add(new WordFrequencyResult(request.getFilePath().getFileName().toString(), occurrences));
         }
